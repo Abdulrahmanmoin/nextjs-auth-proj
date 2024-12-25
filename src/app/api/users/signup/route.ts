@@ -9,6 +9,9 @@ connectDB();
 export async function POST(request: NextRequest) {
     try {
         console.log("Let's start");
+
+        // console.log(process.env.MONGO_URI);
+        
         
         const start = Date.now(); 
         const { email, username, password } = await request.json()
