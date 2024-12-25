@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     try {
         console.log("Let's start");
 
-        // console.log(process.env.MONGO_URI);
+        console.log("MONGO_URI: ", process.env.MONGO_URI);
         
         
         const start = Date.now(); 
