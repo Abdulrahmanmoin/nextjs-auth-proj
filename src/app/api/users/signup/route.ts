@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
         const encryptPassword = await bcrypt.hash(String(password), 10)
 
-       sendMail(email, "Verify your email")
+        await sendMail(email, "Verify your email")
 
         const newUser = await User.create({ email, username, password: encryptPassword })
 

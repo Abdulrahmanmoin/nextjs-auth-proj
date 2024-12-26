@@ -5,14 +5,17 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/dbconfig/dbconfig";
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  pool: true, // Enable connection pooling
-  maxConnections: 5, // Limit simultaneous connections
-  maxMessages: 10, // Limit messages per connection
+  // pool: true, 
+  // maxConnections: 5,
+  // maxMessages: 10,
 });
 
 
