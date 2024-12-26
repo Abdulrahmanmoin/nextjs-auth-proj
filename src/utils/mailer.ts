@@ -56,11 +56,12 @@ export async function sendMail(receiverEmail: string, subject: string) {
 
   const htmlBody = `<p>Click <a href=${process.env.DOMAIN}/${emailHtmlRoute}?token=${token}>here</a> to ${subject} or copy and paste the link below in the browser.</p> <br> <a href=${process.env.DOMAIN}/${emailHtmlRoute}?token=${token}>${token}</a>`
 
-  await transporter.sendMail({
+  const info = await transporter.sendMail({
     from: 'iam.armoin@gmail.com', // sender address
     to: receiverEmail,
     subject: subject,
     html: htmlBody,
   });
 
+  console.log("Message sent: %s", info.messageId);
 }
