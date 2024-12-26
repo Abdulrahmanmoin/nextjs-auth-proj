@@ -8,10 +8,11 @@ import { DB_NAME } from "../../../../../constants";
 
 export async function POST(request: NextRequest) {
     try {
+        
+        console.log("Let's start");
 
         await connectDB();
 
-        console.log("Let's start");
 
         console.log(`"MONGO_URI: ", ${process.env.MONGO_URI!}/${DB_NAME}${process.env.MONGO_URI_PARAMETERS}`);
 
