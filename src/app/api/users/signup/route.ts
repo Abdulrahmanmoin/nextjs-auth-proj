@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
         const encryptPassword = await bcrypt.hash(String(password), 10)
 
-        sendMail(email, "Verify your email").catch((err) => console.error("Failed to send email:", err));
+       await sendMail(email, "Verify your email").catch((err) => console.error("Failed to send email:", err));
 
         const newUser = await User.create({ email, username, password: encryptPassword })
 
