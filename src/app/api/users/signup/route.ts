@@ -5,23 +5,26 @@ import bcrypt from "bcryptjs"
 import { sendMail } from "@/utils/mailer";
 import { DB_NAME } from "../../../../../constants";
 
-connectDB();
 
 export async function POST(request: NextRequest) {
     try {
+
+      connectDB();
+
+
         console.log("Let's start");
 
         console.log(`"MONGO_URI: ", ${process.env.MONGO_URI!}/${DB_NAME}${process.env.MONGO_URI_PARAMETERS}`);
-        
-        
-        const start = Date.now(); 
+
+
+        const start = Date.now();
         const { email, username, password } = await request.json()
 
         console.log('Start database query findone-email');
-        
+
         const user = await User.findOne({ email })
-                                    
-        const findOneEmailQueryTime = Date.now() - start; 
+
+        const findOneEmailQueryTime = Date.now() - start;
         console.log(`Database query of finding by email completed in ${findOneEmailQueryTime}ms`);
 
 
@@ -37,7 +40,7 @@ export async function POST(request: NextRequest) {
 
         sendMail(email, "Verify your email").catch((err) => console.error("Failed to send email:", err));
 
-        console.log(`Database query of sending email: ${  Date.now() - start2}ms`);
+        console.log(`Database query of sending email: ${Date.now() - start2}ms`);
 
 
         console.log('Start database query of creating a user');
@@ -46,7 +49,7 @@ export async function POST(request: NextRequest) {
 
         const newUser = await User.create({ email, username, password: encryptPassword })
 
-        console.log(`Database query of creating a user completed in ${  Date.now() - start3}ms`);
+        console.log(`Database query of creating a user completed in ${Date.now() - start3}ms`);
 
         return NextResponse.json({ message: "User created succesfully", newUser }, { status: 200 });
 
