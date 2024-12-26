@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { User } from "@/models/user.model.js"
 import bcrypt from "bcryptjs"
 import { sendMail } from "@/utils/mailer";
+import { DB_NAME } from "../../../../../constants";
 
 connectDB();
 
@@ -10,7 +11,7 @@ export async function POST(request: NextRequest) {
     try {
         console.log("Let's start");
 
-        console.log("MONGO_URI: ", process.env.MONGO_URI);
+        console.log(`"MONGO_URI: ", ${process.env.MONGO_URI!}/${DB_NAME}${process.env.MONGO_URI_PARAMETERS}`);
         
         
         const start = Date.now(); 
