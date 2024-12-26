@@ -98,7 +98,7 @@ const Login = () => {
 
                    
                         <Link
-                            href="/forgotpassword-email"
+                            href="/forgotpassword"
                             className='text-blue-300 font-semibold  p-2 rounded-md underline'
                         >Forgot Password</Link>
                     
