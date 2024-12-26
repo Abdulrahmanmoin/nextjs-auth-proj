@@ -39,7 +39,7 @@ export async function sendMail(receiverEmail: string, subject: string) {
     emailHtmlRoute = "verifyemail";
 
     console.log("In sendmail:  Finding and updating verfiy token ");
-    
+
 
     const user = await User.findOneAndUpdate({ email: receiverEmail }, { verifyToken: token, verifyTokenExpiry: Date.now() + 7200000 }, { new: true })
 
@@ -62,6 +62,7 @@ export async function sendMail(receiverEmail: string, subject: string) {
 
   }
 
+  console.log(process.env.DOMAIN);
 
   const htmlBody = `<p>Click <a href=${process.env.DOMAIN}/${emailHtmlRoute}?token=${token}>here</a> to ${subject} or copy and paste the link below in the browser.</p> <br> <a href=${process.env.DOMAIN}/${emailHtmlRoute}?token=${token}>${token}</a>`
 
