@@ -9,8 +9,7 @@ import { DB_NAME } from "../../../../../constants";
 export async function POST(request: NextRequest) {
     try {
 
-      connectDB();
-
+        await connectDB();
 
         console.log("Let's start");
 
