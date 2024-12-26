@@ -4,10 +4,12 @@ import { User } from "@/models/user.model.js"
 import bcrypt from "bcryptjs"
 import { sendMail } from "@/utils/mailer";
 
+connectDB();
+
 export async function POST(request: NextRequest) {
     try {
 
-        await connectDB();
+  
 
         const { email, username, password } = await request.json()
 
