@@ -13,9 +13,9 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  // pool: true, 
-  // maxConnections: 5,
-  // maxMessages: 10,
+  pool: true, 
+  maxConnections: 5,
+  maxMessages: 10,
 });
 
 
@@ -23,11 +23,8 @@ const transporter = nodemailer.createTransport({
 export async function sendMail(receiverEmail: string, subject: string) {
   // send mail with defined transport object
 
-  console.log("In sendmail: Connecting DB");
 
   await connectDB();
-
-  console.log("In sendmail: DB connected");
 
   const generateToken = () => {
     return crypto.randomBytes(32).toString("hex");
@@ -41,12 +38,12 @@ export async function sendMail(receiverEmail: string, subject: string) {
   if (subject === "Verify your email") {
     emailHtmlRoute = "verifyemail";
 
-    console.log("In sendmail:  Finding and updating verfiy token ");
+    // console.log("In sendmail:  Finding and updating verfiy token ");
 
 
     const user = await User.findOneAndUpdate({ email: receiverEmail }, { verifyToken: token, verifyTokenExpiry: Date.now() + 7200000 }, { new: true })
 
-    console.log("In sendmail:  completed the finding and updating verfiy token ");
+    // console.log("In sendmail:  completed the finding and updating verfiy token ");
 
     if (!user) {
       return NextResponse.json({ message: "Check your email" }, { status: 400 });
@@ -65,20 +62,15 @@ export async function sendMail(receiverEmail: string, subject: string) {
 
   }
 
-  console.log(process.env.DOMAIN);
 
   const htmlBody = `<p>Click <a href=${process.env.DOMAIN}/${emailHtmlRoute}?token=${token}>here</a> to ${subject} or copy and paste the link below in the browser.</p> <br> <a href=${process.env.DOMAIN}/${emailHtmlRoute}?token=${token}>${token}</a>`
 
-  console.log("In sendmail: Calling sendMail func ");
 
-  const info = await transporter.sendMail({
-    from: 'iam.armoin@gmail.com', // sender address
+  await transporter.sendMail({
+    from: 'iam.armoin@gmail.com',
     to: receiverEmail,
     subject: subject,
     html: htmlBody,
   });
 
-  console.log("In sendmail: Completed the Calling of sendMail func");
-
-  console.log("Message sent: %s", info.messageId);
 }

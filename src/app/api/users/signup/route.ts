@@ -8,10 +8,8 @@ connectDB();
 
 export async function POST(request: NextRequest) {
     try {
-
-  
-
         const { email, username, password } = await request.json()
+
 
         const user = await User.findOne({ email })
 
@@ -21,9 +19,10 @@ export async function POST(request: NextRequest) {
 
         const encryptPassword = await bcrypt.hash(String(password), 10)
 
-        await sendMail(email, "Verify your email")
 
         const newUser = await User.create({ email, username, password: encryptPassword })
+
+        await sendMail(email, "Verify your email")
 
         return NextResponse.json({ message: "User created succesfully", newUser }, { status: 200 });
 
