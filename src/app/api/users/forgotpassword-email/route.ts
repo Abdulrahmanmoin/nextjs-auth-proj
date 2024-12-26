@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
         const { email } = reqBody;
 
-        sendMail(email, "Reset password");
+        await sendMail(email, "Reset password");
 
         return NextResponse.json({ message: "email send successfully" }, { status: 200 })
 
