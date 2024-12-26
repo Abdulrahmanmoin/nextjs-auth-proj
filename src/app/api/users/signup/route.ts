@@ -1,6 +1,6 @@
 import { connectDB } from "@/dbconfig/dbconfig";
 import { NextRequest, NextResponse } from "next/server";
-import { User } from "@/models/user.model"
+import { User } from "@/models/user.model.js"
 import bcrypt from "bcryptjs"
 import { sendMail } from "@/utils/mailer";
 
