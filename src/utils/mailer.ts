@@ -2,7 +2,7 @@ import nodemailer from "nodemailer"
 import crypto from "crypto"
 import { User } from "@/models/user.model";
 import { NextResponse } from "next/server";
-import { connectDB } from "@/dbconfig/dbconfig";
+// import { connectDB } from "@/dbconfig/dbconfig";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 export async function sendMail(receiverEmail: string, subject: string) {
   // send mail with defined transport object
 
-  await connectDB();
+  // await connectDB();
 
   const generateToken = () => {
     return crypto.randomBytes(32).toString("hex");
